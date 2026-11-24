@@ -1,4 +1,4 @@
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 
 const word = "unblocked";
 
@@ -12,3 +12,8 @@ if (/\s/.test(word)) {
 
 mkdirSync("/output", { recursive: true });
 writeFileSync("/output/entry.txt", word);
+
+// Read-back check: the written entry must be byte-identical to the word.
+if (readFileSync("/output/entry.txt", "utf8") !== word) {
+  throw new Error("read-back mismatch: entry.txt differs from word");
+}
