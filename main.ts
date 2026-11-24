@@ -1,3 +1,4 @@
+// Entry: the single word "unblocked" — one word from your ex.
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 
 const word = "unblocked";
@@ -8,6 +9,9 @@ if (word.length < 1 || word.length > 30) {
 }
 if (/\s/.test(word)) {
   throw new Error("word must contain no whitespace");
+}
+if (word !== word.trim()) {
+  throw new Error("word must not have leading or trailing whitespace");
 }
 
 mkdirSync("/output", { recursive: true });
